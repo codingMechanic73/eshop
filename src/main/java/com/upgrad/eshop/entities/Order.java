@@ -1,24 +1,32 @@
 package com.upgrad.eshop.entities;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Data
 @Entity
 @Table(name = "ESHOP_ORDER")
 public class Order {
+
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     @ManyToOne
     private User user;
 
-//  TODO: Define the 'Product' field with reference to the Product entity and use the necessary relationship annotation
+    @OneToOne
+    private Product product;
 
-//  TODO: Define the 'shippingAddress' field with reference to the ShippingAddress entity and use the necessary relationship annotation
+    @ManyToOne
+    private ShippingAddress shippingAddress;
 
+    @Column(nullable = false)
     private Double amount;
-    private LocalDateTime orderDate = LocalDateTime.now();
 
-//  TODO: Generate getters & setters and constructors for the Entity class
+    @Column(nullable = false)
+    private LocalDateTime orderDate = LocalDateTime.now();
 
 }
