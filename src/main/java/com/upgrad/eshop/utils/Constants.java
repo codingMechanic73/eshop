@@ -21,4 +21,14 @@ public final class Constants {
         public static final long JWT_TOKEN_VALIDITY = 1000 * 60 * 10; // 10 minutes
         public static final String AUTHORITY_KEY = "scopes";
     }
+
+    public static final class RegexPattern {
+        private RegexPattern() {
+
+        }
+
+        public static final String ZIPCODE = "^[0-9][0-9]{4}[0-9]$";
+        public static final String PHONE = "^[0-9][0-9]{8}[0-9]$";
+        public static final String EMAIL = "^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\\.[a-z]{2,6}$";
+    }
 }

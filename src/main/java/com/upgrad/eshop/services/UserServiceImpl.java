@@ -6,35 +6,43 @@ import com.upgrad.eshop.entities.User;
 import com.upgrad.eshop.exceptions.EmailAlreadyRegisteredException;
 import com.upgrad.eshop.exceptions.UserNotFoundException;
 import com.upgrad.eshop.exceptions.UsernameAlreadyRegisteredException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.upgrad.eshop.utils.DtoEntityMapper;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+@Data
 @Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserRepository userRepository;
+    private DtoEntityMapper dtoEntityMapper;
 
-//  TODO: Define the acceptUserDetails(), findByUsername(), findById(), addUser()and saveUser() methods by
-//        using the necessary logic as per the method name and by overriding them from the UserService interface
+    private final UserRepository userRepository;
 
     @Override
     public User acceptUserDetails(RegisterRequest registerRequest) throws UsernameAlreadyRegisteredException, EmailAlreadyRegisteredException {
-        return null;
+        if (userRepository.findByEmail(registerRequest.getEmail()).isPresent()) {
+            throw new EmailAlreadyRegisteredException("Try any other email address, this email address is already registered!");
+        }
+        if (userRepository.findByUserName(registerRequest.getUserName()).isPresent()) {
+            throw new UsernameAlreadyRegisteredException("Try any other username, this username is already registered!");
+        }
+        return saveUser(dtoEntityMapper.convertToUserEntity(registerRequest));
     }
 
     @Override
     public User findByUsername(String username) {
-        return null;
+        return userRepository.findByUserName(username).get();
     }
 
     @Override
     public User findById(Long id) throws UserNotFoundException {
-        return null;
+        return userRepository
+                .findById(id)
+                .orElseThrow(() -> new UserNotFoundException("This username has not been registered!"));
     }
 
     @Override
@@ -44,7 +52,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User saveUser(User user) {
-        return null;
+        userRepository.save(user);
+        return user;
     }
 
     @Override
@@ -52,4 +61,5 @@ public class UserServiceImpl implements UserService {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return userRepository.findByUserName(userDetails.getUsername()).orElse(null);
     }
+
 }

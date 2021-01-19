@@ -7,11 +7,17 @@ import com.upgrad.eshop.exceptions.UserNotFoundException;
 import com.upgrad.eshop.exceptions.UsernameAlreadyRegisteredException;
 
 public interface UserService {
-    public User acceptUserDetails(RegisterRequest registerRequest)
+
+    User acceptUserDetails(RegisterRequest registerRequest)
             throws UsernameAlreadyRegisteredException, EmailAlreadyRegisteredException;
-    public User findByUsername(String username);
-    public User findById(Long id) throws UserNotFoundException;
-    public User addUser(RegisterRequest registerRequest);
-    public User saveUser(User user);
-    public User getLoggedInUser();
+
+    User findByUsername(String username);
+
+    User findById(Long id) throws UserNotFoundException;
+
+    User addUser(RegisterRequest registerRequest) throws UsernameAlreadyRegisteredException;
+
+    User saveUser(User user);
+
+    User getLoggedInUser();
 }

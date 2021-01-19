@@ -7,10 +7,11 @@ import com.upgrad.eshop.exceptions.ProductNotFoundException;
 import com.upgrad.eshop.exceptions.ShippingAddressNotFoundException;
 
 public interface OrderService {
-    public Order addOrder(OrderRequest orderRequest) throws ProductNotFoundException, ShippingAddressNotFoundException;
-    public Order getOrderById(Long id) throws OrderNotFoundException;
-    public Order saveOrder(Order order);
 
-//  TODO: Create the implementing class 'OrderServiceImpl' in the services package to define the required methods
+    Order addOrder(OrderRequest orderRequest) throws ProductNotFoundException, ShippingAddressNotFoundException;
+
+    Order getOrderById(Long id) throws OrderNotFoundException;
+
+    Order saveOrder(Order order);
 
 }
