@@ -9,23 +9,25 @@ import com.upgrad.eshop.services.OrderService;
 import com.upgrad.eshop.utils.APIAuthorizer;
 import com.upgrad.eshop.utils.Constants;
 import com.upgrad.eshop.validators.OrderValidator;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
 @RequestMapping("/orders")
 public class OrderController {
+
+    @Autowired
+    private APIAuthorizer apiAuthorizer;
 
     @Autowired
     private OrderValidator orderValidator;
 
     @Autowired
     private OrderService orderService;
-
-    @Autowired
-    private APIAuthorizer apiAuthorizer;
 
     private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
 
@@ -46,4 +48,5 @@ public class OrderController {
         logger.debug("Adding order to database");
         return orderService.addOrder(orderRequest);
     }
+
 }
