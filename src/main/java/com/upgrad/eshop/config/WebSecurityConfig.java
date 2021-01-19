@@ -72,9 +72,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic().disable()
                 .csrf().disable()
                 .authorizeRequests().antMatchers(
-                        "/auth/**",
-                                    "/products/**",
-                                    "/products").permitAll()
+                "/auth/**",
+                "/products/**",
+                "/products").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

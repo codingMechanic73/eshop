@@ -1,11 +1,15 @@
 package com.upgrad.eshop.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "ESHOP_PRODUCT")
 public class Product {
@@ -21,7 +25,7 @@ public class Product {
     private String category;
 
     @Column(nullable = false)
-    private double price;
+    private Double price;
 
     @Column(nullable = false)
     private String description;
@@ -30,7 +34,7 @@ public class Product {
     private String manufacturer;
 
     @Column(nullable = false)
-    private int availableItems;
+    private Integer availableItems;
 
     @Column(nullable = false)
     private String imageUrl;
